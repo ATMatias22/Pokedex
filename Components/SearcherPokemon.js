@@ -5,32 +5,32 @@ import Pokemon from './Pokemon';
 
 
 export default class SearcherPokemon extends React.Component {
+  pokemonNumber;
+
   constructor(props) {
     super(props);
     this.state = {
       loading: false,
       pokemonImage: '',
       pokemonName: '',
-      pokemonNumber: '',
       mensaje: '',
     }
   }
 
-  getPokemon = () => {
+  getPokemon = async () => {
     this.setState({ loading: true, mensaje: 'Buscando pokemon' })
-    axios.get(`https://pokeapi.co/api/v2/pokemon/${this.state.pokemonNumber}`)
-      .then(res => {
-        this.setState({
-          pokemonImage: res.data.sprites.front_default,
-          pokemonName: res.data.name,
-          loading: false
-        })
+    try {
+      let res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${this.pokemonNumber}`);
+      this.setState({
+        pokemonImage: res.data.sprites.front_default,
+        pokemonName: res.data.name.toUpperCase(),
+        loading: false
       })
-      .catch(err => {
-        this.setState({
-          mensaje: 'No existe pokemon'
-        })
+    } catch (error) {
+      this.setState({
+        mensaje: 'No existe pokemon'
       })
+    }
   }
 
 
@@ -43,7 +43,7 @@ export default class SearcherPokemon extends React.Component {
             style={styles.input}
             placeholder="numero de pokemon"
             keyboardType="phone-pad"
-            onChangeText={(value) => this.setState({ pokemonNumber: value })}
+            onChangeText={(value) => this.pokemonNumber = value}
           />
           <TouchableOpacity style={styles.btn} onPress={this.getPokemon}>
             <Text style={styles.btnText}>Buscar</Text>
@@ -60,7 +60,7 @@ export default class SearcherPokemon extends React.Component {
           style={styles.input}
           placeholder="numero de pokemon"
           keyboardType="phone-pad"
-          onChangeText={(value) => this.setState({ pokemonNumber: value })}
+          onChangeText={(value) => this.pokemonNumber = value}
         />
         <TouchableOpacity style={styles.btn} onPress={this.getPokemon}>
           <Text style={styles.btnText}>Buscar</Text>
