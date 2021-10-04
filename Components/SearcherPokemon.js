@@ -10,49 +10,37 @@ export default class SearcherPokemon extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
       pokemonImage: '',
       pokemonName: '',
-      mensaje: '',
+      message: '',
     }
   }
 
   getPokemon = async () => {
-    this.setState({ loading: true, mensaje: 'Buscando pokemon' })
+    this.setState({
+      message: 'Buscando pokemon',
+      pokemonImage: '',
+      pokemonName: '',
+    })
+
     try {
       let res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${this.pokemonNumber}`);
       this.setState({
         pokemonImage: res.data.sprites.front_default,
         pokemonName: res.data.name.toUpperCase(),
-        loading: false
+        message: ''
       })
     } catch (error) {
       this.setState({
-        mensaje: 'No existe pokemon'
+        message: 'No existe pokemon',
+        pokemonImage: '',
+        pokemonName: '',
       })
     }
   }
 
 
   render() {
-    if (this.state.loading) {
-      return (
-        <View style={styles.body}>
-          <Text style={styles.text}>Coloque el numero del pokemon</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="numero de pokemon"
-            keyboardType="phone-pad"
-            onChangeText={(value) => this.pokemonNumber = value}
-          />
-          <TouchableOpacity style={styles.btn} onPress={this.getPokemon}>
-            <Text style={styles.btnText}>Buscar</Text>
-          </TouchableOpacity>
-          <Text style={styles.text}>{this.state.mensaje}</Text>
-        </View>
-      );
-    }
-
     return (
       <View style={styles.body}>
         <Text style={styles.text}>Coloque el numero del pokemon</Text>
@@ -65,11 +53,11 @@ export default class SearcherPokemon extends React.Component {
         <TouchableOpacity style={styles.btn} onPress={this.getPokemon}>
           <Text style={styles.btnText}>Buscar</Text>
         </TouchableOpacity>
-        {this.state.pokemonImage !== '' && <Pokemon name={this.state.pokemonName} image={this.state.pokemonImage} />}
+        {!!this.state.message && <Text style={styles.text}>{this.state.message}</Text>}
+        {!!this.state.pokemonImage && <Pokemon name={this.state.pokemonName} image={this.state.pokemonImage} />}
       </View>
     );
   }
-
 }
 
 
@@ -77,7 +65,6 @@ export default class SearcherPokemon extends React.Component {
 
 const styles = StyleSheet.create({
   body: {
-
     justifyContent: "space-between",
     paddingVertical: 5,
   },
