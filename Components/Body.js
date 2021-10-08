@@ -1,14 +1,19 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import SearcherPokemon from './SearcherPokemon';
 
-export default class Header extends React.Component {
+export default class Body extends React.Component {
   render() {
     return (
-      <View >
+      <View style={styles.body}>
         <SearcherPokemon />
       </View>
     );
   }
 }
 
+const styles = StyleSheet.create({
+  body: {
+    paddingVertical: 5,
+  }
+})

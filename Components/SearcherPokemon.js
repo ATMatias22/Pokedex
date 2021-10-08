@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
 import axios from 'axios';
-import Pokemon from './Pokemon';
+import CardPokemon from './CardPokemon/CardPokemon';
 
 
 export default class SearcherPokemon extends React.Component {
@@ -12,6 +12,7 @@ export default class SearcherPokemon extends React.Component {
     this.state = {
       pokemonImage: '',
       pokemonName: '',
+      pokemonType: [],
       message: '',
     }
   }
@@ -28,6 +29,7 @@ export default class SearcherPokemon extends React.Component {
       this.setState({
         pokemonImage: res.data.sprites.front_default,
         pokemonName: res.data.name.toUpperCase(),
+        pokemonType: res.data.types.map((type) => ({ "slot": type.slot.toString(), "name": type.type.name })),
         message: ''
       })
     } catch (error) {
@@ -39,11 +41,10 @@ export default class SearcherPokemon extends React.Component {
     }
   }
 
-
   render() {
     return (
-      <View style={styles.body}>
-        <Text style={styles.text}>Coloque el numero del pokemon</Text>
+      <>
+        <Text style={styles.text}>Coloque el número del pokemon</Text>
         <TextInput
           style={styles.input}
           placeholder="numero de pokemon"
@@ -54,20 +55,14 @@ export default class SearcherPokemon extends React.Component {
           <Text style={styles.btnText}>Buscar</Text>
         </TouchableOpacity>
         {!!this.state.message && <Text style={styles.text}>{this.state.message}</Text>}
-        {!!this.state.pokemonImage && <Pokemon name={this.state.pokemonName} image={this.state.pokemonImage} />}
-      </View>
+        {!!this.state.pokemonImage && <CardPokemon name={this.state.pokemonName} image={this.state.pokemonImage} pokemonType={this.state.pokemonType} />}
+      </>
     );
   }
 }
 
 
-
-
 const styles = StyleSheet.create({
-  body: {
-    justifyContent: "space-between",
-    paddingVertical: 5,
-  },
   text: {
     fontSize: 20,
     textAlign: 'center',
@@ -89,6 +84,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     color: 'white',
-
   }
 });
