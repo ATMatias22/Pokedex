@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import CardPokemon from './CardPokemon/CardPokemon';
+import NecessaryDataPokemon from '../helpers/NecessaryDataPokemon.js';
+
 
 
 export default class SearcherPokemon extends React.Component {
@@ -12,7 +14,7 @@ export default class SearcherPokemon extends React.Component {
     this.state = {
       pokemonImage: '',
       pokemonName: '',
-      pokemonType: [],
+      pokemonData: [],
       message: '',
     }
   }
@@ -29,7 +31,7 @@ export default class SearcherPokemon extends React.Component {
       this.setState({
         pokemonImage: res.data.sprites.front_default,
         pokemonName: res.data.name.toUpperCase(),
-        pokemonType: res.data.types.map((type) => ({ "slot": type.slot.toString(), "name": type.type.name })),
+        pokemonData: new NecessaryDataPokemon(res.data.id, res.data.height, res.data.weight, res.data.abilities, res.data.types),
         message: ''
       })
     } catch (error) {
@@ -55,7 +57,7 @@ export default class SearcherPokemon extends React.Component {
           <Text style={styles.btnText}>Buscar</Text>
         </TouchableOpacity>
         {!!this.state.message && <Text style={styles.text}>{this.state.message}</Text>}
-        {!!this.state.pokemonImage && <CardPokemon name={this.state.pokemonName} image={this.state.pokemonImage} pokemonType={this.state.pokemonType} />}
+        {!!this.state.pokemonImage && <CardPokemon name={this.state.pokemonName} image={this.state.pokemonImage} pokemonData={this.state.pokemonData} />}
       </>
     );
   }
@@ -86,3 +88,5 @@ const styles = StyleSheet.create({
     color: 'white',
   }
 });
+
+
