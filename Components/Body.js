@@ -14,6 +14,6 @@ export default class Body extends React.Component {
 
 const styles = StyleSheet.create({
   body: {
-    paddingVertical: 5,
+    padding: 12,
   }
 })

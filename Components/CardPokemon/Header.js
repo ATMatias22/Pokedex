@@ -7,7 +7,7 @@ export default class Header extends React.Component {
     return (
       <>
         <Text style={styles.text}>{this.props.name}</Text>
-        <View /* style={styles.container} */>
+        <View style={styles.container}>
           <Image
             style={styles.imgPokemon}
             source={{ uri: this.props.image }}
@@ -24,10 +24,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   imgPokemon: {
-    height: 200,
+    aspectRatio: 2,
+    resizeMode: 'contain',
+
   },
-  /*  container: {
-     borderBottomWidth: 5,
-     borderColor: 'red',
-   } */
+  container: {
+    marginVertical: 20
+  }
+
 })

@@ -29,7 +29,7 @@ export default class SearcherPokemon extends React.Component {
     try {
       let res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${this.pokemonNumber}`);
       this.setState({
-        pokemonImage: res.data.sprites.front_default,
+        pokemonImage: `http://play.pokemonshowdown.com/sprites/xyani/${res.data.name}.gif`,
         pokemonName: res.data.name.toUpperCase(),
         pokemonData: new NecessaryDataPokemon(res.data.id, res.data.height, res.data.weight, res.data.abilities, res.data.types),
         message: ''
@@ -68,16 +68,15 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     textAlign: 'center',
-    marginTop: 5,
   },
   input: {
+    marginTop: 10,
     height: 40,
-    margin: 12,
     borderWidth: 1,
     padding: 10,
   },
   btn: {
-    marginHorizontal: 15,
+    marginTop: 10,
     borderColor: 'red',
     borderWidth: 3,
     backgroundColor: 'red',
