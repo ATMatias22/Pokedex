@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
-import { colorTypes } from '../../helpers/FunctionStyles.js';
+import { colorTypes } from '../../../helpers/FunctionStyles.js';
 
 
 export default class CardPokemon extends React.Component {

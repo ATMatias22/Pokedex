@@ -2,11 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import CardPokemon from './CardPokemon/CardPokemon';
-import NecessaryDataPokemon from '../helpers/NecessaryDataPokemon.js';
+import NecessaryDataPokemon from '../../helpers/NecessaryDataPokemon.js';
 
 
 
-export default class SearcherPokemon extends React.Component {
+export default class Searcher extends React.Component {
   pokemonNumber;
 
   constructor(props) {
