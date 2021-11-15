@@ -10,7 +10,7 @@ export default class Logo extends React.Component {
       <Image
         source={require('../../assets/images/titulo.png')}
         mx="auto"
-        mb={30}
+        my={30}
         alt="Logo PokeAPI"
       />
     )

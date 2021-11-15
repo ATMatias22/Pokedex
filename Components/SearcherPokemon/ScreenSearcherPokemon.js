@@ -1,21 +1,25 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
-import MenuBar from './MenuBar';
 import Header from './Header';
 import Body from './Body';
-
+import {
+  VStack,
+  Center,
+  ScrollView
+} from "native-base"
 
 export default class ScreenSearcherPokemon extends React.Component {
 
   render() {
     return (
-      <ScrollView>
-        <View >
-          <MenuBar />
-          <Header />
-          <Body />
-        </View>
+      <ScrollView bg="warmGray.300">
+        <Center >
+          <VStack w={{ base: "90%" }}>
+            <Header />
+            <Body />
+          </VStack >
+        </Center>
       </ScrollView>
+
     )
   };
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import { Text, Box, FormControl, Input, Button } from 'native-base';
 import axios from 'axios';
 import CardPokemon from './CardPokemon/CardPokemon';
 import NecessaryDataPokemon from '../../helpers/NecessaryDataPokemon.js';
@@ -45,47 +45,57 @@ export default class Searcher extends React.Component {
 
   render() {
     return (
-      <>
-        <Text style={styles.text}>Coloque el número del pokemon</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="numero de pokemon"
-          keyboardType="phone-pad"
-          onChangeText={(value) => this.pokemonNumber = value}
-        />
-        <TouchableOpacity style={styles.btn} onPress={this.getPokemon}>
-          <Text style={styles.btnText}>Buscar</Text>
-        </TouchableOpacity>
-        {!!this.state.message && <Text style={styles.text}>{this.state.message}</Text>}
+      <Box>
+        <FormControl mb="5" >
+          <FormControl.Label _text={styles.input.label}>Put the pokemon number</FormControl.Label>
+          <Input
+            keyboardType="number-pad"
+            borderColor={styles.input.borderColor}
+            borderWidth={styles.input.borderWidth}
+            _focus={styles.input.focus}
+            fontSize={styles.input.fontSize}
+            onChangeText={(value) => this.pokemonNumber = value}
+          />
+        </FormControl>
+
+        <Button onPress={this.getPokemon}
+          bg={styles.button.bg}
+          _pressed={styles.button.pressed}
+          _text={styles.button.text}
+        >
+          Search
+        </Button>
+        {!!this.state.message && <Text textAlign="center" mt={2} fontSize="xl">{this.state.message}</Text>}
         {!!this.state.pokemonImage && <CardPokemon name={this.state.pokemonName} image={this.state.pokemonImage} pokemonData={this.state.pokemonData} />}
-      </>
+      </Box>
     );
   }
 }
 
 
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 20,
-    textAlign: 'center',
-  },
+
+
+const styles = {
   input: {
-    marginTop: 10,
-    height: 40,
-    borderWidth: 1,
-    padding: 10,
+    borderColor: "violet.900",
+    borderWidth: 2,
+    fontSize: "xl",
+    label: {
+      fontSize: "xl",
+      mx: "auto"
+    },
+    focus: {
+      borderColor: "violet.900",
+      borderWidth: 3
+    },
   },
-  btn: {
-    marginTop: 10,
-    borderColor: 'red',
-    borderWidth: 3,
-    backgroundColor: 'red',
-  },
-  btnText: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: 'white',
+  button: {
+    bg: "red.600",
+    pressed: {
+      bg: "red.800",
+    },
+    text: {
+      fontSize: "md"
+    }
   }
-});
-
-
+}

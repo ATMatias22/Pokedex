@@ -10,7 +10,7 @@ export default class ScreenFormLogin extends React.Component {
   render() {
     return (
       <Center flex={1} bg="violet.700" >
-        <VStack w={{ base: "90%" }}>
+        <VStack w={{ base: "90%" }} >
           <Logo />
           <Form navigation={this.props.navigation} />
         </VStack >

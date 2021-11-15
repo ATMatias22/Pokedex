@@ -1,19 +1,14 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { VStack } from 'native-base'
 import Searcher from './Searcher';
 
 export default class Body extends React.Component {
   render() {
     return (
-      <View style={styles.body}>
+      <VStack >
         <Searcher />
-      </View>
+      </VStack>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  body: {
-    padding: 12,
-  }
-})

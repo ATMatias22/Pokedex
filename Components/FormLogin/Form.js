@@ -6,7 +6,8 @@ import {
   Button,
   IconButton,
   Text,
-  Link
+  Link,
+  HStack
 } from "native-base"
 import { Ionicons } from "@expo/vector-icons"
 
@@ -16,13 +17,13 @@ export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: false
+      showPassword: false
     }
   }
 
-  handleClick = () => {
+  clickPasswordBtn = () => {
     this.setState(state => ({
-      show: !state.show
+      showPassword: !state.showPassword
     }))
   }
 
@@ -31,50 +32,43 @@ export default class Login extends React.Component {
       <>
         <Box >
           <FormControl mb="5">
-            <FormControl.Label _text={styles.inputLabel}>Mail</FormControl.Label>
+            <FormControl.Label _text={styles.input.label}>Mail</FormControl.Label>
             <Input keyboardType="email-address"
-              _focus={styles.inputFocus}
-              color={styles.inputTextColor}
-              fontSize={styles.inputTextFontSize} />
+              _focus={styles.input.focus}
+              color={styles.input.textColor}
+              fontSize={styles.input.textFontSize} />
           </FormControl>
         </Box>
         <Box >
           <FormControl mb="5">
-            <FormControl.Label _text={styles.inputLabel}>Password</FormControl.Label>
+            <FormControl.Label _text={styles.input.label}>Password</FormControl.Label>
             <Input
-              type={this.state.show ? "text" : "password"}
+              type={this.state.showPassword ? "text" : "password"}
               InputRightElement={
                 <IconButton
-                  onPress={this.handleClick}
-                  h="full"
+                  onPress={this.clickPasswordBtn}
                   _icon={{
                     as: Ionicons,
-                    name: this.state.show ? "eye" : "eye-off",
-                    color: "white"
+                    name: this.state.showPassword ? styles.input.password.icon.showText : styles.input.password.icon.hideText,
+                    color: styles.input.password.icon.color
                   }}
-                  _pressed={{
-                    bg: "fuchsia.900"
-                  }}
+                  _pressed={styles.input.password.icon.pressed}
                 />
               }
-              _focus={styles.inputFocus}
-              color={styles.inputTextColor}
-              fontSize={styles.inputTextFontSize}
+              _focus={styles.input.focus}
+              color={styles.input.textColor}
+              fontSize={styles.input.textFontSize}
             />
           </FormControl>
         </Box>
 
 
         <Button w="70%" mx="auto" my={5} bg="orange.500"
-          _text={{
-            fontSize: "lg"
-          }}
-          _pressed={{
-            bg: "orange.300"
-          }}
+          _text={styles.button.text}
+          _pressed={styles.button.pressed}
           onPress={() => this.props.navigation.navigate('ScreenSearcherPokemon')}
         >Log in</Button>
-        <Box flexDirection="row" justifyContent="center">
+        <HStack justifyContent="center" flexWrap="wrap">
           <Text fontSize="lg" color="white" >
             You do not have an account?{" "}
           </Text>
@@ -87,19 +81,40 @@ export default class Login extends React.Component {
           >
             click here
           </Link>
-        </Box>
+        </HStack>
       </>
     )
   }
 }
 
-
 const styles = {
-  inputLabel: { color: "primary.50", fontSize: "lg", letterSpacing: 1 },
-  inputFocus: {
-    borderColor: "primary.50",
-    borderWidth: 3
+
+  input: {
+    label: { color: "primary.50", fontSize: "lg", letterSpacing: 1 },
+    focus: {
+      borderColor: "primary.50",
+      borderWidth: 3
+    },
+    textColor: "primary.50",
+    textFontSize: "md",
+    password: {
+      icon: {
+        showText: "eye",
+        hideText: "eye-off",
+        color: "white",
+        pressed: {
+          bg: "fuchsia.900"
+        }
+      }
+
+    }
   },
-  inputTextColor: "primary.50",
-  inputTextFontSize: "md"
+  button: {
+    text: {
+      fontSize: "lg"
+    },
+    pressed: {
+      bg: "orange.300"
+    }
+  }
 }

@@ -6,7 +6,8 @@ import {
   Button,
   IconButton,
   Text,
-  Link
+  Link,
+  HStack
 } from "native-base"
 import { Ionicons } from "@expo/vector-icons"
 
@@ -144,15 +145,11 @@ export default class Form extends React.Component {
 
 
         <Button w="70%" mx="auto" my={5} bg="orange.500"
-          _text={{
-            fontSize: "lg"
-          }}
-          _pressed={{
-            bg: "orange.300"
-          }}
+          _text={styles.button.text}
+          _pressed={styles.button.pressed}
           onPress={() => this.props.navigation.navigate('ScreenFormLogin')}
         >Sign in</Button>
-        <Box flexDirection="row" justifyContent="center">
+        <HStack justifyContent="center" flexWrap="wrap">
           <Text fontSize="lg" color="white" >
             Do you already have an account?{" "}
           </Text>
@@ -162,17 +159,16 @@ export default class Form extends React.Component {
               color: "orange.500",
               fontSize: "lg",
             }}
-
           >
             log in
           </Link>
-        </Box>
+        </HStack>
       </>
     )
   }
 }
 
-
+/* _pressed = { styles.input.password.icon.pressed } */
 const styles = {
 
   input: {
@@ -193,6 +189,14 @@ const styles = {
         }
       }
 
+    }
+  },
+  button: {
+    text: {
+      fontSize: "lg"
+    },
+    pressed: {
+      bg: "orange.300"
     }
   }
 }

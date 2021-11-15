@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Image, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Text, Image, View } from 'native-base'
 
 export default class Header extends React.Component {
 
@@ -26,7 +27,6 @@ const styles = StyleSheet.create({
   imgPokemon: {
     aspectRatio: 2,
     resizeMode: 'contain',
-
   },
   container: {
     marginVertical: 20
